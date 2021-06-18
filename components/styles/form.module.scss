@@ -1,0 +1,173 @@
+.form {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  padding: 10px;
+
+  .numberInputs {
+    display: flex;
+    gap: 5px;
+    justify-content: space-between;
+
+    .numberInput {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      padding: 10px 16px;
+      border: 1px solid transparent;
+      border-color: transparent;
+      // border-radius: 10px;
+      transition: all 0.3s ease;
+      height: 45px;
+      font-family: inherit;
+      font-size: 18px;
+      background-color: #f3f3f4aa;
+
+      &:hover {
+        box-shadow: 0 0 0 4px #3366ff22;
+      }
+
+      &:active {
+        box-shadow: 0 0 0 4px #3366ff22;
+        outline: none;
+      }
+
+      &:focus {
+        outline: none;
+        box-shadow: 0 0 0 4px #3366ff22;
+        border-color: #3366ffaa;
+      }
+
+      &::placeholder {
+        font-size: 18px;
+        font-family: inherit;
+        color: #333333bb;
+      }
+
+      &:first-child {
+        border-top-left-radius: 10px;
+        border-bottom-left-radius: 10px;
+      }
+
+      &:last-child {
+        border-top-right-radius: 10px;
+        border-bottom-right-radius: 10px;
+      }
+    }
+  }
+
+  .textInput {
+    display: flex;
+    align-items: center;
+    padding: 10px 16px;
+    border: 1px solid transparent;
+    border-color: transparent;
+    border-radius: 10px;
+    transition: all 0.3s ease;
+    height: 45px;
+    font-family: inherit;
+    font-size: 18px;
+    background-color: #f3f3f4aa;
+
+    &:hover {
+      box-shadow: 0 0 0 4px #3366ff22;
+    }
+
+    &:active {
+      box-shadow: 0 0 0 4px #3366ff22;
+      outline: none;
+    }
+
+    &:focus {
+      outline: none;
+      box-shadow: 0 0 0 4px #3366ff22;
+      border-color: #3366ffaa;
+    }
+
+    &::placeholder {
+      font-size: 18px;
+      font-family: inherit;
+      color: #333333bb;
+    }
+  }
+
+  .addButton {
+    font-family: inherit;
+    font-size: 18px;
+    padding: 15px 25px;
+    max-width: 100px;
+    border: none;
+    // background: #5056c6cc;
+    // background: #200ac3ee;
+    color: #fff;
+    background: none;
+    border-radius: 16px;
+    margin: 0 auto;
+    cursor: pointer;
+    transform: scale(1);
+    transition: all 0.3s ease;
+    margin-top: 20px;
+
+    &:before {
+      content: "";
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+      border-radius: 16px;
+      background: #200ac3ee;
+      transform: scale(1);
+      transition: all 0.3s ease;
+      z-index: -1;
+    }
+
+    &:active {
+      &:before {
+        transform: scale(0.95);
+      }
+    }
+  }
+
+  .generateScheduleButton {
+    font-family: inherit;
+    font-size: 18px;
+    padding: 15px 25px;
+    // max-width: 100px;
+    border: none;
+    // background: #5056c6cc;
+    // background: #200ac3ee;
+    color: #fff;
+    border-radius: 16px;
+    cursor: pointer;
+    transform: scale(1);
+    transition: all 0.3s ease;
+    background: none;
+
+    &:before {
+      content: "";
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+      border-radius: 16px;
+      background: #200ac3ee;
+      transform: scale(1);
+      z-index: -1;
+      transition: all 0.3s ease;
+    }
+
+    &:active {
+      &:before {
+        transform: scale(0.95);
+      }
+    }
+  }
+
+  .errorMessage {
+    color: red;
+    font-size: 14px;
+  }
+}

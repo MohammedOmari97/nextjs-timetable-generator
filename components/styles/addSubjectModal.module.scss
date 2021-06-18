@@ -1,0 +1,46 @@
+.container {
+  height: 100%;
+  width: 100%;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  h2 {
+    text-align: center;
+    font-family: "whitney bold";
+    font-size: 30px;
+    margin: 0;
+  }
+
+  form {
+    width: 80%;
+    margin: auto;
+    margin-top: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    flex: 1 1 auto;
+
+    .numberInputs {
+      display: flex;
+      gap: 5px;
+      justify-content: space-between;
+    }
+  }
+
+  .closeButton {
+    // background: #000;
+    border: none;
+    padding: 0px;
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 35px;
+    height: 35px;
+  }
+}

@@ -2,15 +2,144 @@ html,
 body {
   padding: 0;
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
-    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+  width: 100%;
+  height: 100%;
+  font-family: "Whitney Book Regular", system-ui, -apple-system,
+    BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans,
+    Droid Sans, Helvetica Neue, sans-serif;
+  overflow: hidden;
 }
 
-a {
-  color: inherit;
-  text-decoration: none;
-}
-
-* {
+*,
+*::before,
+*::after {
   box-sizing: border-box;
+}
+
+@font-face {
+  font-family: "Whitney Medium";
+  font-style: normal;
+  font-weight: normal;
+  src: local("Whitney Medium"),
+    url("../fonts/whitneymedium.woff") format("woff");
+}
+
+@font-face {
+  font-family: "Whitney Medium Italic";
+  font-style: normal;
+  font-weight: normal;
+  src: local("Whitney Medium Italic"),
+    url("../fonts/whitneymediumitalic.woff") format("woff");
+}
+
+@font-face {
+  font-family: "Whitney Bold";
+  font-style: normal;
+  font-weight: normal;
+  src: local("Whitney Bold"), url("../fonts/whitneybold.woff") format("woff");
+}
+
+@font-face {
+  font-family: "Whitney Semibold Regular";
+  font-style: normal;
+  font-weight: normal;
+  src: local("Whitney Semibold Regular"),
+    url("../fonts/whitneysemibold.woff") format("woff");
+}
+
+@font-face {
+  font-family: "Whitney Book Regular";
+  font-style: normal;
+  font-weight: normal;
+  src: local("Whitney Book Regular"),
+    url("../fonts/whitneybook.woff") format("woff");
+}
+
+@font-face {
+  font-family: "Whitney Light Regular";
+  font-style: normal;
+  font-weight: normal;
+  src: local("Whitney Light Regular"),
+    url("../fonts/whitneylight.woff") format("woff");
+}
+
+@font-face {
+  font-family: "Whitney Semibold Italic";
+  font-style: normal;
+  font-weight: normal;
+  src: local("Whitney Semibold Italic"),
+    url("../fonts/WhitneySemiboldItalic.woff") format("woff");
+}
+
+@font-face {
+  font-family: "Whitney Book Italic";
+  font-style: normal;
+  font-weight: normal;
+  src: local("Whitney Book Italic"),
+    url("../fonts/whitneybookitalic.woff") format("woff");
+}
+
+@font-face {
+  font-family: "Whitney Light Italic";
+  font-style: normal;
+  font-weight: normal;
+  src: local("Whitney Light Italic"),
+    url("../fonts/whitneylightitalic.woff") format("woff");
+}
+
+[hidden] {
+  display: none !important;
+}
+
+:root {
+  --purple-1: #8879bb;
+  --purple-2: #ebe8fd;
+  --red-1: #de7979;
+  --red-2: #ffecee;
+  --red-3: #de797910;
+  --blue: #121dedbb;
+  --pink-1: #fe63aa;
+  --green-1: #28b848;
+  /* --green-2: #bbfab0; */
+  --green-2: #e0fcd7;
+  --green-3: #bbfab0;
+}
+
+.addSubjectModal {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding: 10px;
+  border-radius: 15px;
+  background: lavender;
+  margin: auto;
+  max-width: 800px;
+  width: 95%;
+  height: 70%;
+  z-index: 1000;
+}
+
+.dialogOverlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: hsla(0, 100%, 100%, 0.95);
+  z-index: 999;
+  display: flex;
+  align-items: center;
+}
+
+.dialogContent {
+  max-width: 800px;
+  width: 98%;
+  /* height: 70%; */
+  margin: auto;
+  background: #fff;
+  padding: 20px;
+  border-radius: 50px;
+  border: 1px solid #00000022;
+  position: relative;
 }

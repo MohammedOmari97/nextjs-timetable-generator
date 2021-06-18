@@ -1,0 +1,76 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+
+  h2 {
+    margin: 0;
+    font-family: "Whitney bold";
+    text-align: center;
+    font-size: 30px;
+  }
+
+  .modalContent {
+    display: flex;
+    justify-content: space-between;
+
+    .teachersSection {
+      padding: 10px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      width: 100%;
+
+      button {
+        border: none;
+        background: none;
+        padding: 10px;
+        border-radius: 10px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        font-family: "Whitney Book Regular";
+        font-size: 18px;
+
+        &:hover {
+          background-color: #e3e3e333;
+        }
+
+        &:active {
+          background-color: #e3e3e3;
+        }
+
+        &.selected {
+          background: #e3e3e3aa;
+        }
+      }
+    }
+
+    .subjectsSection {
+      padding: 10px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      width: 100%;
+
+      .subjectListItem {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        padding: 15px;
+        border-radius: 15px;
+        background: #200ac3ee;
+        box-shadow: inset 20px 20px 50px 0px rgb(255 255 255 / 30%),
+          0px 4px 15px 1px rgb(60 64 67 / 15%);
+        color: #fff;
+
+        p {
+          margin: 0;
+
+          &:not(:last-child) {
+            margin-bottom: 5px;
+          }
+        }
+      }
+    }
+  }
+}

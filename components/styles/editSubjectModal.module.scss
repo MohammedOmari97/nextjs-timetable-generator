@@ -1,0 +1,22 @@
+.container {
+  h2 {
+    margin: 0;
+    font-family: "whitney bold";
+    font-size: 30px;
+    text-align: center;
+  }
+
+  form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    width: 80%;
+    margin: auto;
+    margin-top: 10px;
+
+    .numberInputs {
+      display: flex;
+      gap: 5px;
+    }
+  }
+}

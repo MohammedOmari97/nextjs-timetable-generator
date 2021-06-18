@@ -1,0 +1,29 @@
+.container {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+
+  .formSide {
+    width: 100%;
+    padding: 10px;
+
+    h2 {
+      font-family: "Whitney bold";
+      font-size: 30px;
+      color: #555;
+    }
+  }
+
+  .subjectsListSide {
+    width: 100%;
+    padding: 10px;
+    flex: 1 1 auto;
+    flex-direction: column;
+
+    h2 {
+      font-family: "Whitney bold";
+      font-size: 30px;
+      color: #555;
+    }
+  }
+}

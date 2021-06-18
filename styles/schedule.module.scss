@@ -1,0 +1,26 @@
+.container {
+  > h2 {
+    margin: 0;
+    text-align: center;
+    font-family: "Whitney bold";
+    color: #666;
+    margin-bottom: 10px;
+  }
+
+  .toolbar {
+    display: flex;
+    // justify-content: flex-start;
+    justify-content: space-between;
+    gap: 10px;
+    padding: 10px;
+
+    .actionButtons {
+      display: flex;
+      gap: 10px;
+    }
+
+    .options {
+      display: flex;
+    }
+  }
+}

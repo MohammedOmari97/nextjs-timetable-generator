@@ -8,8 +8,18 @@
     "start": "next start"
   },
   "dependencies": {
-    "next": "10.2.3",
+    "@reach/dialog": "^0.15.0",
+    "@zeit/next-workers": "^1.0.0",
+    "framer-motion": "^4.1.17",
+    "next": "^10.0.4",
     "react": "17.0.2",
-    "react-dom": "17.0.2"
-  }
+    "react-dom": "17.0.2",
+    "react-redux": "^7.2.4",
+    "react-select": "^4.3.1",
+    "redux": "^4.1.0",
+    "redux-devtools-extension": "^2.13.9",
+    "sass": "^1.34.1",
+    "worker-loader": "^3.0.8"
+  },
+  "devDependencies": {}
 }
