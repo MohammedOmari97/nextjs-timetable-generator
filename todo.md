@@ -33,3 +33,35 @@
 - fix the select input
 - edit, remove subjects in the `Add Subjects` page
 - form validations
+
+---
+
+- fix the position of the options list of the subject items
+- pick a design for the those options
+- form validation
+
+---
+
+- devtools styles
+- cursor styles
+- level dropdown styles
+- make the transition to the schedule page only if there is subjects in the store
+- currently ongoing classes
+- fix the cursor showing on top of modal
+- make the two pages responsive
+- form validation
+
+---
+
+- enable/disable devtools
+- devtools z-index in small screens
+- // toolsbar in small screens
+- // subject's time range
+- text overflow
+- 1px cursor shift fix
+
+---
+
+- form validation
+  - duplicated subjects
+  - empty entries

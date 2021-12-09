@@ -22,5 +22,12 @@
     .options {
       display: flex;
     }
+
+    @media (max-width: 500px) {
+      justify-content: flex-end;
+      .actionButtons {
+        display: none;
+      }
+    }
   }
 }

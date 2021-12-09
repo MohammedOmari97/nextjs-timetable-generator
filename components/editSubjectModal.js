@@ -2,9 +2,9 @@ import Modal from "./modal"
 import styles from "./styles/editSubjectModal.module.scss"
 import TextFeild from "./textFeild"
 import NumberField from "./numberField"
-import { useState } from "react"
+import { useState, useRef } from "react"
 import Button from "./button"
-import { useDispatch } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
 import { editSubject } from "../store/reducers"
 
 function EditSubjectModalContent({ close, subject }) {
@@ -12,7 +12,11 @@ function EditSubjectModalContent({ close, subject }) {
   const [instructor, setInstructor] = useState(subject.instructor)
   const [level, setLevel] = useState(subject.level)
   const [hpw, setHpw] = useState(subject.hpw)
-  console.log(subject)
+
+  const subjectName = useRef(subject.name)
+
+  const [error, setError] = useState(null)
+  const subjects = useSelector((state) => state.subjectsReducer)
 
   const dispatch = useDispatch()
 
@@ -62,15 +66,33 @@ function EditSubjectModalContent({ close, subject }) {
             }}
           />
         </div>
+        {error && <div className={styles.error}>* {error}</div>}
         <Button
           onClick={(e) => {
             e.preventDefault()
-            console.log(name)
-            console.log(instructor)
-            console.log(level)
-            console.log(hpw)
-            dispatch(editSubject(subject.id, name, instructor, level, hpw))
-            close()
+
+            let duplicated = false
+
+            for (let i = 0; i < subjects.length; i++) {
+              if (
+                subjects[i].name === name &&
+                subjects[i].name !== subjectName.current
+              ) {
+                duplicated = true
+              }
+            }
+
+            if (!name || !instructor) {
+              setError("All fields are required")
+              return
+            } else if (duplicated) {
+              setError("This subject already exist!")
+              return
+            } else {
+              setError(null)
+              dispatch(editSubject(subject.id, name, instructor, level, hpw))
+              close()
+            }
           }}
         >
           Save

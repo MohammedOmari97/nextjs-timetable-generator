@@ -16,7 +16,9 @@ const colors = [
   "#2a5934",
 ]
 
-function getColor() {
+let subjectsColors = {}
+
+function getColor(subject) {
   let id = Math.floor(Math.random() * colors.length)
 
   while (takenColors.includes(id)) {
@@ -24,6 +26,7 @@ function getColor() {
   }
 
   takenColors.push(id)
+  subjectsColors[subject] = colors[id]
   return colors[id]
 }
 

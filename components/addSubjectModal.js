@@ -1,11 +1,15 @@
-import { useState } from "react"
+import { useRef, useState } from "react"
 import styles from "./styles/addSubjectModal.module.scss"
 import Modal from "./modal"
 import TextFeild from "./textFeild"
 import NumberField from "./numberField"
 import Button from "./button"
-import { useDispatch } from "react-redux"
-import { addColorForSubject, addSubjectToSchedule } from "../store/reducers"
+import { useDispatch, useSelector } from "react-redux"
+import {
+  addRandomColorForSubject,
+  addSubject,
+  addSubjectToSchedule,
+} from "../store/reducers"
 import { Subject } from "../utils/generateSchedule"
 
 function AddSubjectModalContent({ close, setShowAddSubjectModal }) {
@@ -13,6 +17,11 @@ function AddSubjectModalContent({ close, setShowAddSubjectModal }) {
   const [instructor, setInstructor] = useState()
   const [level, setLevel] = useState(1)
   const [hpw, setHpw] = useState(1)
+
+  const [error, setError] = useState()
+
+  const subjects = useSelector((state) => state.subjectsReducer)
+  console.log(subjects)
 
   const dispatch = useDispatch()
 
@@ -26,7 +35,6 @@ function AddSubjectModalContent({ close, setShowAddSubjectModal }) {
           id="name"
           value={name}
           onChange={(e) => setName(e.target.value)}
-          // error={nameError}
         />
         <TextFeild
           placeholder="Enter the subject's instructor"
@@ -34,7 +42,6 @@ function AddSubjectModalContent({ close, setShowAddSubjectModal }) {
           value={instructor}
           onChange={(e) => setInstructor(e.target.value)}
           id="instructor"
-          // error={instructorError}
         />
         <div className={styles.numberInputs}>
           <NumberField
@@ -64,14 +71,36 @@ function AddSubjectModalContent({ close, setShowAddSubjectModal }) {
             }}
           />
         </div>
+        {error && <div className={styles.error}>* {error}</div>}
         <Button
           onClick={(e) => {
             e.preventDefault()
-            dispatch(addColorForSubject(name))
-            dispatch(
-              addSubjectToSchedule(new Subject(name, instructor, hpw, level))
-            )
-            close()
+
+            let duplicated = false
+
+            for (let i = 0; i < subjects.length; i++) {
+              if (subjects[i].name === name) {
+                duplicated = true
+                break
+              }
+            }
+
+            if (!name || !instructor) {
+              setError("All fields are required!")
+              return
+            } else if (duplicated) {
+              setError("This subject already exist!")
+              return
+            } else {
+              setError(null)
+              dispatch(addRandomColorForSubject(name))
+              dispatch(
+                addSubjectToSchedule(new Subject(name, instructor, hpw, level))
+              )
+              // adding the subject to the `all subjects` array
+              dispatch(addSubject(name, instructor, hpw, level))
+              close()
+            }
           }}
         >
           Add

@@ -6,7 +6,7 @@ import styles from "./styles/schedule.module.scss"
 import { Subject, Population } from "../utils/generateSchedule"
 import { AnimatePresence } from "framer-motion"
 import { useDispatch, useSelector } from "react-redux"
-import { scheduleGenerated, addColorForSubject } from "../store/reducers"
+import { scheduleGenerated, addRandomColorForSubject } from "../store/reducers"
 
 function Schedule({ subjects, level }) {
   const dispatch = useDispatch()
@@ -19,7 +19,7 @@ function Schedule({ subjects, level }) {
   useEffect(() => {
     for (let i = 0; i < subjects.length; i++) {
       if (!subjectsColors?.[subjects[i].name]) {
-        dispatch(addColorForSubject(subjects[i].name))
+        dispatch(addRandomColorForSubject(subjects[i].name))
       }
     }
   }, [subjects])

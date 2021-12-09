@@ -4,7 +4,7 @@ import generateTimes from "../utils/generateTimes"
 import { getTimeString } from "../utils/generateSchedule"
 
 const subjectsList = []
-const schedule = { schedule: null }
+const schedule = { schedule: null, error: null }
 
 function subjectsReducer(state = subjectsList, action) {
   if (action.type === "add-subject") {
@@ -14,23 +14,20 @@ function subjectsReducer(state = subjectsList, action) {
   } else if (action.type === "edit-subject") {
     const { name, instructor, hpw, level, id } = action.payload
 
-    console.log(action.payload)
-
     return state.map((subject) => {
       if (subject.id === id) {
         subject.name = name
         subject.instructor = instructor
         subject.level = level
         subject.hpw = hpw
-        console.log(subject)
         return subject
       } else {
-        console.log(subject)
         return subject
       }
     })
   } else if (action.type === "delete-subject") {
-    return state.filter((subject) => subject.id !== action.payload.id)
+    // return state.filter((subject) => subject.id !== action.payload.id)
+    return state.filter((subject) => subject.name !== action.payload.name)
   } else {
     return state
   }
@@ -38,10 +35,8 @@ function subjectsReducer(state = subjectsList, action) {
 
 function scheduleReducer(state = schedule, action) {
   if (action.type === "schedule-generated") {
-    return { schedule: action.payload.schedule }
+    return { ...state, schedule: action.payload.schedule }
   } else if (action.type === "add-subject-to-schedule") {
-    console.log(action.payload.subject)
-
     let found = false
     let tries = 0
 
@@ -68,7 +63,7 @@ function scheduleReducer(state = schedule, action) {
     }
 
     if (!found) {
-      throw new Error("No time slots available for this subject!")
+      return { ...state, error: "No time slots for this subject!" }
     }
 
     action.payload.subject.startTime = getTimeString(
@@ -87,22 +82,42 @@ function scheduleReducer(state = schedule, action) {
     schedule.result.subjects = schedule.result.subjects.filter(
       (subject) => subject.name !== action.payload.subject
     )
-    console.log(schedule)
     return { ...state, schedule }
+  } else if (action.type === "reset-schedule-error") {
+    return { ...state, error: null }
   } else {
     return state
   }
 }
 
 function colorsReducer(state = {}, action) {
-  if (action.type === "add-subject-color") {
-    return { ...state, [action.payload.subject]: getColor() }
+  if (action.type === "add-random-subject-color") {
+    return {
+      ...state,
+      [action.payload.subject]: getColor(action.payload.subject),
+    }
+  } else if (action.type === "add-subject-color") {
+    return { ...state, [action.payload.subject]: action.payload.color }
   } else if (action.type === "delete-subject-color") {
     // this is when the subject get deleted, so we need to remove the color it took from taken colors
     return state
   } else {
     return state
   }
+}
+
+function devtoolsReducer(state = { useDevtoolsTime: true }, action) {
+  if (action.type === "toggle-use-devtools") {
+    return { ...state, useDevtoolsTime: !state.useDevtoolsTime }
+  } else {
+    return state
+  }
+}
+
+// -------------------------------------------------------------------------------
+
+function toggleUseDevtoolsTime() {
+  return { type: "toggle-use-devtools" }
 }
 
 function addSubject(name, instructor, hpw, level, id) {
@@ -118,16 +133,21 @@ function addSubject(name, instructor, hpw, level, id) {
   }
 }
 
-function deleteSubject(id) {
-  return { type: "delete-subject", payload: { id } }
+function deleteSubject(name) {
+  // return { type: "delete-subject", payload: { id } }
+  return { type: "delete-subject", payload: { name } }
 }
 
 function editSubject(id, name, instructor, level, hpw) {
   return { type: "edit-subject", payload: { id, name, instructor, level, hpw } }
 }
 
-function addColorForSubject(subject) {
-  return { type: "add-subject-color", payload: { subject } }
+function addRandomColorForSubject(subject) {
+  return { type: "add-random-subject-color", payload: { subject } }
+}
+
+function addSubjectColor(subject, color) {
+  return { type: "add-subject-color", payload: { subject, color } }
 }
 
 function deleteSubjectColor(subject) {
@@ -146,19 +166,27 @@ function deleteSubjectFromSchedule(subject) {
   return { type: "delete-subject-from-schedule", payload: { subject } }
 }
 
+function resetScheduleError() {
+  return { type: "reset-schedule-error" }
+}
+
 export {
   addSubject,
-  addColorForSubject,
+  addRandomColorForSubject,
+  addSubjectColor,
   deleteSubjectColor,
   scheduleGenerated,
   addSubjectToSchedule,
   deleteSubjectFromSchedule,
   editSubject,
   deleteSubject,
+  resetScheduleError,
+  toggleUseDevtoolsTime,
 }
 
 export default combineReducers({
   subjectsReducer,
   scheduleReducer,
   colorsReducer,
+  devtoolsReducer,
 })

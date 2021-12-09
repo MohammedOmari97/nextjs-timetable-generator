@@ -45,14 +45,14 @@ function TeachersLoadModalContent() {
                     className={styles.subjectListItem}
                     key={`${subject.name}-${subject.teacher}`}
                   >
-                    <p>{subject.name}</p>
-                    <p>{subject.teacher}</p>
                     <p>
-                      <strong>Subject's Level:</strong> ({subject.level})
+                      <b>{subject.name}</b>
                     </p>
                     <p>
-                      <strong>Subject's hours per week:</strong>
-                      {subject.hpw}
+                      <strong>Level:</strong> ({subject.level})
+                    </p>
+                    <p>
+                      <strong>Hours Per Week: </strong>({subject.hpw})
                     </p>
                   </motion.div>
                 )

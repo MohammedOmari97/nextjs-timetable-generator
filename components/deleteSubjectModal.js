@@ -3,16 +3,20 @@ import Modal from "./modal"
 import styles from "./styles/deleteSubjectModal.module.scss"
 import TextFeild from "./textFeild"
 import Button from "./button"
-import { useDispatch } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
 import {
   deleteSubjectColor,
   deleteSubjectFromSchedule,
+  deleteSubject,
 } from "../store/reducers"
 
 function DeleteSubjectModalContent({ close }) {
   const [name, setName] = useState()
-
   const dispatch = useDispatch()
+
+  const [error, setError] = useState()
+
+  const subjects = useSelector((state) => state.subjectsReducer)
 
   return (
     <div className={styles.container}>
@@ -26,12 +30,30 @@ function DeleteSubjectModalContent({ close }) {
           onChange={(e) => setName(e.target.value)}
           // error={nameError}
         />
+        {error && <div className={styles.error}>* {error}</div>}
         <Button
           onClick={(e) => {
+            let exist = false
+
+            for (let i = 0; i < subjects.length; i++) {
+              if (subjects[i].name === name) {
+                exist = true
+                break
+              }
+            }
+
             e.preventDefault()
-            dispatch(deleteSubjectFromSchedule(name))
-            dispatch(deleteSubjectColor(name))
-            close()
+
+            if (!exist) {
+              setError("This subject doesn't exist!")
+              return
+            } else {
+              setError(null)
+              dispatch(deleteSubjectFromSchedule(name))
+              dispatch(deleteSubject(name))
+              dispatch(deleteSubjectColor(name))
+              close()
+            }
           }}
           style={{ marginTop: "20px" }}
         >

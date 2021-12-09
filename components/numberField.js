@@ -9,6 +9,7 @@ function NumberField({
   onChange,
   placeholder,
   style,
+  disabled,
 }) {
   return (
     <div className={styles.container}>
@@ -24,6 +25,7 @@ function NumberField({
         }}
         value={value}
         style={{ ...style }}
+        disabled={disabled}
       />
     </div>
   )

@@ -38,10 +38,40 @@
 
     .options {
       position: absolute;
-      top: 50%;
+      top: 25%;
       right: 5px;
       transform: translateY(50%);
       display: flex;
+      justify-content: center;
+
+      button {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        background: none;
+        cursor: pointer;
+        padding: 10px;
+        border-radius: 50%;
+        border: 1px solid transparent;
+        transition: all 0.3s ease;
+
+        svg {
+          width: 18px;
+          height: 18px;
+          fill: #e3e3e3;
+        }
+
+        &:hover {
+          // border: 1px solid rgba(155, 155, 155, 0.57);
+          // background-color: rgba(255, 255, 255, 0.05);
+          background-color: rgba(0, 0, 0, 0.15);
+        }
+
+        &:active {
+          // background-color: rgba(255, 255, 255, 0.3);
+          background-color: rgba(0, 0, 0, 0.3);
+        }
+      }
     }
   }
 }

@@ -1,5 +1,13 @@
-const withWorkers = require("@zeit/next-workers")
+module.exports = {
+  webpack(config) {
+    config.module.rules.push({
+      test: /\.svg$/,
+      issuer: {
+        test: /\.(js|ts)x?$/,
+      },
+      use: ["@svgr/webpack"],
+    })
 
-module.exports = withWorkers({
-  workerLoaderOptions: { inline: true },
-})
+    return config
+  },
+}

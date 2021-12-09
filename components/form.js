@@ -1,13 +1,13 @@
-import { useState } from "react"
+import { useState, useRef } from "react"
 import Button from "./button"
 import styles from "./styles/form.module.scss"
-import { addSubject, addColorForSubject } from "../store/reducers"
+import { addSubject, addRandomColorForSubject } from "../store/reducers"
 import { useDispatch } from "react-redux"
 import TextFeild from "./textFeild"
 import NumberField from "./numberField"
 import Link from "next/link"
 import ActionButton from "./actionButton"
-// import { useField } from "../hooks/useField"
+import { useSelector } from "react-redux"
 
 function Form() {
   const [name, setName] = useState()
@@ -20,6 +20,10 @@ function Form() {
 
   const [error, setError] = useState(null)
 
+  const textInputRef = useRef(null)
+
+  const subjects = useSelector((state) => state.subjectsReducer)
+
   return (
     <form className={styles.form}>
       <TextFeild
@@ -29,6 +33,7 @@ function Form() {
         value={name}
         onChange={(e) => setName(e.target.value)}
         error={nameError}
+        ref={textInputRef}
       />
       <TextFeild
         placeholder="Enter the subject's instructor"
@@ -68,20 +73,31 @@ function Form() {
         style={{ marginTop: "20px" }}
         onClick={(e) => {
           e.preventDefault()
+
+          let duplicated = false
+
+          for (let i = 0; i < subjects.length; i++) {
+            if (subjects[i].name === name) {
+              duplicated = true
+              break
+            }
+          }
+
           if (!name || !instructor) {
-            if (!name) {
-              setNameError("This field is required!")
-            }
-            if (!instructor) {
-              setInstructorError("This field is required!")
-            }
+            setError("All fields are required")
+            return
+          } else if (duplicated) {
+            setError("This subject is already added!")
+            return
           } else {
+            setError(null)
             dispatch(
               addSubject(name, instructor, hpw, level, new Date().getTime())
             )
-            dispatch(addColorForSubject(name))
+            dispatch(addRandomColorForSubject(name))
             setName("")
             setInstructor("")
+            textInputRef.current.focus()
           }
         }}
       >

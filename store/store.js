@@ -7,7 +7,8 @@ let store
 
 const initialState = {
   subjectsReducer: [],
-  scheduleReducer: [],
+  scheduleReducer: { schedule: null, error: null },
+  colorsReducer: {},
 }
 
 function initStore(preloadedState = initialState) {

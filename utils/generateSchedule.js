@@ -60,6 +60,18 @@ export class Subject {
 
     // return (timeOverlap && teacherOverlap) || (timeOverlap && levelOverlap)
   }
+
+  getStringTime() {
+    return typeof this.startTime === "string"
+      ? [this.startTime, this.endTime]
+      : [getTimeString(this.startTime), getTimeString(this.endTime)]
+  }
+
+  getNumberTime() {
+    return typeof this.startTime === "number"
+      ? [this.startTime, this.endTime]
+      : [getTimeNumber(this.startTime), getTimeNumber(this.endTime)]
+  }
 }
 
 class Timetable {

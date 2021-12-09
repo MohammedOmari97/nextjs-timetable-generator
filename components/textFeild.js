@@ -1,15 +1,10 @@
-import { useEffect, useState } from "react"
+import { useEffect, useState, forwardRef } from "react"
 import styles from "./styles/textField.module.scss"
 
-function TextFeild({
-  value,
-  placeholder,
-  pattern,
-  label,
-  className,
-  onChange,
-  id,
-}) {
+const TextFeild = forwardRef(function TextFeild(
+  { value, placeholder, pattern, label, className, onChange, id },
+  ref
+) {
   const [valid, setValid] = useState(false)
   const [didFocus, setDidFocus] = useState(false)
   const [error, setError] = useState(false)
@@ -47,6 +42,7 @@ function TextFeild({
             }
           }}
           required
+          ref={ref}
         />
         <svg
           class="octicon octicon-check js-clipboard-check-icon mx-1 d-inline-block color-text-success d-none"
@@ -65,6 +61,6 @@ function TextFeild({
       </div>
     </div>
   )
-}
+})
 
 export default TextFeild

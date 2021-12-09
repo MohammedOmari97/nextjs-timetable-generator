@@ -5,8 +5,10 @@ import styles from "./styles/subjectListItem.module.scss"
 import EditSubjectModal from "./editSubjectModal"
 import { deleteSubject } from "../store/reducers"
 import { useDispatch } from "react-redux"
+import EditIcon from "../public/edit.svg"
+import DeleteIcon from "../public/delete.svg"
 
-function SubjectListItem({ subject }) {
+function SubjectListItem({ subject, editable }) {
   const [showOptions, setShowOptions] = useState(false)
   const [showEditSubjectModal, setShowEditPanelModal] = useState(false)
 
@@ -45,7 +47,7 @@ function SubjectListItem({ subject }) {
           <p>Level: ({subject.level})</p>
         </div>
         <AnimatePresence>
-          {showOptions && (
+          {showOptions && editable && (
             <motion.div
               positionTransition
               // initial={{ opacity: 0, x: "calc(-50% + 0px)" }}
@@ -63,17 +65,18 @@ function SubjectListItem({ subject }) {
             >
               <button
                 onClick={() => {
-                  dispatch(deleteSubject(subject.id))
+                  // dispatch(deleteSubject(subject.id))
+                  dispatch(deleteSubject(subject.name))
                 }}
               >
-                Delete
+                <DeleteIcon />
               </button>
               <button
                 onClick={() => {
                   setShowEditPanelModal(true)
                 }}
               >
-                Edit
+                <EditIcon />
               </button>
             </motion.div>
           )}

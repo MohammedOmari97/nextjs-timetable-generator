@@ -6,15 +6,20 @@ import { deleteSubject } from "../store/reducers"
 
 function SubjectsList() {
   const subjects = useSelector((state) => state.subjectsReducer)
-
   const dispatch = useDispatch()
 
   return (
     <div className={styles.container}>
       <AnimatePresence initial={false}>
-        {subjects.map((subject) => {
-          return <SubjectListItem subject={subject} key={subject.name} />
-        })}
+        {subjects.length > 0 ? (
+          subjects.map((subject) => {
+            return (
+              <SubjectListItem subject={subject} key={subject.name} editable />
+            )
+          })
+        ) : (
+          <p>No subjects added yet!</p>
+        )}
       </AnimatePresence>
     </div>
   )

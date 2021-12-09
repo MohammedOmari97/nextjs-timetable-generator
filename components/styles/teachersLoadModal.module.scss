@@ -2,6 +2,7 @@
   display: flex;
   flex-direction: column;
   gap: 20px;
+  height: 100%;
 
   h2 {
     margin: 0;
@@ -13,6 +14,7 @@
   .modalContent {
     display: flex;
     justify-content: space-between;
+    height: 100%;
 
     .teachersSection {
       padding: 10px;
@@ -20,6 +22,8 @@
       flex-direction: column;
       gap: 10px;
       width: 100%;
+      overflow: auto;
+      height: calc(100% - 60px);
 
       button {
         border: none;
@@ -51,6 +55,8 @@
       flex-direction: column;
       gap: 10px;
       width: 100%;
+      overflow: auto;
+      height: calc(100% - 60px);
 
       .subjectListItem {
         display: flex;

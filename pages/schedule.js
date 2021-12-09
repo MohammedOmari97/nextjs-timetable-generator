@@ -4,7 +4,7 @@ import Image from "next/image"
 import { initializeStore, useStore } from "../store/store"
 import { Subject, Population } from "../utils/generateSchedule"
 import styles from "../styles/schedule.module.scss"
-import { useSelector } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
 import ActionButton from "../components/actionButton"
 import Schedule from "../components/schedule"
 import { DialogOverlay, DialogContent } from "@reach/dialog"
@@ -18,6 +18,10 @@ import AddSubjectModal from "../components/addSubjectModal"
 import Select from "react-select"
 import DeleteSubjectModal from "../components/deleteSubjectModal"
 import TeachersLoadModal from "../components/teachersLoadModal"
+import Devtools from "../components/devtools"
+import OngoingClasses from "../components/ongoingClasses"
+import { resetScheduleError } from "../store/reducers"
+import ScheduleErrorModal from "../components/scheduleErrorModal"
 
 export default function Home(props) {
   const subjects = useSelector((store) => store.subjectsReducer)
@@ -26,6 +30,12 @@ export default function Home(props) {
   const [showAddSubjectModal, setShowAddSubjectModal] = useState(false)
   const [showDeleteSubjectModal, setShowDeleteSubjectModal] = useState(false)
   const [showTeachersLoadModal, setShowTeachersLoadModal] = useState(false)
+
+  const { error: outOfTimeSlotsError } = useSelector((state) => {
+    return state.scheduleReducer
+  })
+
+  const dispatch = useDispatch()
 
   return (
     <div>
@@ -63,6 +73,7 @@ export default function Home(props) {
           </div>
           <div className={styles.options}>
             <Select
+              defaultValue={{ value: level, label: level }}
               options={[
                 { value: 1, label: "1" },
                 { value: 2, label: "2" },
@@ -80,6 +91,7 @@ export default function Home(props) {
                   borderColor: "#9e9e9e",
                   minHeight: "30px",
                   height: "30px",
+                  width: "60px",
                   boxShadow: state.isFocused ? null : null,
                 }),
                 valueContainer: (provided, state) => ({
@@ -100,19 +112,6 @@ export default function Home(props) {
                 }),
               }}
             />
-            {/* <label for="level-select">level</label>
-            <select
-              value={level}
-              name="pets"
-              id="level-select"
-              onChange={(e) => setLevel(Number(e.target.value))}
-            >
-              <option value="1">1</option>
-              <option value="2">2</option>
-              <option value="3">3</option>
-              <option value="4">4</option>
-              <option value="5">5</option>
-            </select> */}
           </div>
         </div>
         <AnimatePresence>
@@ -139,9 +138,21 @@ export default function Home(props) {
             />
           )}
         </AnimatePresence>
+        <AnimatePresence>
+          {outOfTimeSlotsError && (
+            <ScheduleErrorModal
+              isOpen={outOfTimeSlotsError}
+              close={() => dispatch(resetScheduleError())}
+            />
+          )}
+        </AnimatePresence>
         <div style={{ overflow: "auto" }}>
           <Schedule subjects={subjects} level={level} />
         </div>
+
+        <OngoingClasses />
+
+        <Devtools />
       </div>
     </div>
   )
