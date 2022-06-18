@@ -105,12 +105,7 @@ function Form() {
       </Button>
       <Link href="/schedule">
         <a>
-          <Button
-            onClick={() => {
-              console.log("generating the schedule")
-            }}
-            style={{ width: "100%", maxWidth: "100%" }}
-          >
+          <Button style={{ width: "100%", maxWidth: "100%" }}>
             Generate Schedule
           </Button>
         </a>

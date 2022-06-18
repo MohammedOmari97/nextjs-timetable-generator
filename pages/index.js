@@ -20,10 +20,10 @@ export default function Home(props) {
           fontFamily: "Whitney bold",
           margin: 0,
           textAlign: "center",
-          color: "#555",
+          color: "#059669",
         }}
       >
-        Islamic University Timetable Generator
+        The Islamic University Timetable Generator
       </h2>
       <div className={styles.container}>
         <div className={styles.formSide}>

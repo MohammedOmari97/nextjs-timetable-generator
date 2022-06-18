@@ -7,7 +7,7 @@ function Button({ children, onClick, style }) {
       className={styles.button}
       style={{ ...style }}
       onClick={(e) => {
-        onClick(e)
+        onClick && onClick(e)
       }}
       whileTap={{ "--pseudoScale": 0.95 }}
     >

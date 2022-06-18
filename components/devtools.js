@@ -11,6 +11,7 @@ export function TimeProvider({ children }) {
   const [seconds, setSeconds] = useState(0)
   const [minutes, setMinutes] = useState(0)
   const [hours, setHours] = useState(12)
+  const [selectedDay, setSelectedDay] = useState("Sat")
 
   const { useDevtoolsTime } = useSelector((state) => state.devtoolsReducer)
 
@@ -47,7 +48,16 @@ export function TimeProvider({ children }) {
 
   return (
     <TimeContext.Provider
-      value={{ seconds, setSeconds, minutes, setMinutes, hours, setHours }}
+      value={{
+        seconds,
+        setSeconds,
+        minutes,
+        setMinutes,
+        hours,
+        setHours,
+        selectedDay,
+        setSelectedDay,
+      }}
     >
       {children}
     </TimeContext.Provider>
@@ -57,8 +67,16 @@ export function TimeProvider({ children }) {
 function Devtools() {
   const [showDevtools, setShowDevtools] = useState(false)
 
-  const { minutes, hours, seconds, setMinutes, setHours, setSeconds } =
-    useContext(TimeContext)
+  const {
+    minutes,
+    hours,
+    seconds,
+    setMinutes,
+    setHours,
+    setSeconds,
+    selectedDay,
+    setSelectedDay,
+  } = useContext(TimeContext)
   const dispatch = useDispatch()
   const { useDevtoolsTime } = useSelector((state) => state.devtoolsReducer)
 
@@ -126,6 +144,21 @@ function Devtools() {
                 onChange={(e) => setHours(Number(e.target.value))}
                 disabled={!useDevtoolsTime}
               />
+            </div>
+            <div className={styles.days}>
+              {["Sat", "Sun", "Mon", "Tue", "Wed"].map((day) => {
+                const isSelected = day === selectedDay
+                return (
+                  <button
+                    onClick={() => setSelectedDay(day)}
+                    data-selected={isSelected}
+                    key={day}
+                    disabled={!useDevtoolsTime}
+                  >
+                    {day}
+                  </button>
+                )
+              })}
             </div>
           </motion.div>
         )}

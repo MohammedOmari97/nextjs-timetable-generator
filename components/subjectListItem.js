@@ -7,6 +7,8 @@ import { deleteSubject } from "../store/reducers"
 import { useDispatch } from "react-redux"
 import EditIcon from "../public/edit.svg"
 import DeleteIcon from "../public/delete.svg"
+import { IoTrashBinOutline } from "react-icons/io5"
+import { FiTrash2, FiEdit } from "react-icons/fi"
 
 function SubjectListItem({ subject, editable }) {
   const [showOptions, setShowOptions] = useState(false)
@@ -17,9 +19,17 @@ function SubjectListItem({ subject, editable }) {
   return (
     <motion.li
       positionTransition
-      initial={{ opacity: 0, x: -50, scale: 0.8 }}
-      animate={{ opacity: 1, x: 0, scale: 1 }}
-      exit={{ opacity: 0, scale: 0.5, transition: { duration: 0.2 } }}
+      initial={{ opacity: 0, y: 5 }}
+      animate={{
+        opacity: 1,
+        y: 0,
+        transition: { duration: 0.2, ease: "easeInOut" },
+      }}
+      exit={{
+        opacity: 0,
+        x: 20,
+        transition: { duration: 0.2, ease: "easeInOut" },
+      }}
       className={styles.subjectListItem}
       onHoverStart={() => {
         setShowOptions(true)
@@ -27,18 +37,7 @@ function SubjectListItem({ subject, editable }) {
       onHoverEnd={() => {
         setShowOptions(false)
       }}
-      // key={subject.id}
     >
-      {/* <li
-      key={subject.id}
-      className={styles.subjectListItem}
-      onMouseEnter={() => {
-        setShowOptions(true)
-      }}
-      onMouseLeave={() => {
-        setShowOptions(false)
-      }}
-    > */}
       <div>
         <h4>{subject.name}</h4>
         <h4>{subject.instructor}</h4>
@@ -50,14 +49,10 @@ function SubjectListItem({ subject, editable }) {
           {showOptions && editable && (
             <motion.div
               positionTransition
-              // initial={{ opacity: 0, x: "calc(-50% + 0px)" }}
               initial={{ opacity: 0, x: 5 }}
-              // animate={{ opacity: 1, x: "calc(-50% + 5px)" }}
               animate={{ opacity: 1, x: 0 }}
               exit={{
                 opacity: 0,
-                // x: "calc(-50% + 5px)",
-                // x: "-50%",
                 x: 5,
                 transition: { duration: 0.2 },
               }}
@@ -65,18 +60,17 @@ function SubjectListItem({ subject, editable }) {
             >
               <button
                 onClick={() => {
-                  // dispatch(deleteSubject(subject.id))
                   dispatch(deleteSubject(subject.name))
                 }}
               >
-                <DeleteIcon />
+                <FiTrash2 />
               </button>
               <button
                 onClick={() => {
                   setShowEditPanelModal(true)
                 }}
               >
-                <EditIcon />
+                <FiEdit />
               </button>
             </motion.div>
           )}
@@ -93,19 +87,6 @@ function SubjectListItem({ subject, editable }) {
       </div>
     </motion.li>
   )
-}
-
-{
-  /* <li
-      key={subject.id}
-      className={styles.subjectListItem}
-      onMouseEnter={() => {
-        setShowOptions(true)
-      }}
-      onMouseLeave={() => {
-        setShowOptions(false)
-      }}
-    ></li> */
 }
 
 export default SubjectListItem

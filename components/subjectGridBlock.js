@@ -14,6 +14,7 @@ import { ColorPicker, useColor } from "react-color-palette"
 import "react-color-palette/lib/css/styles.css"
 import ActionButton from "./actionButton"
 import DeleteSubjectModal from "./deleteSubjectModal"
+import Portal from "@reach/portal"
 
 function SubjectGridBlock({
   name,
@@ -36,7 +37,6 @@ function SubjectGridBlock({
 
   const blockRef = useRef()
 
-  // const [selectedColor, setSelectedColor] = useColor("hex", "#121212")
   const [selectedColor, setSelectedColor] = useColor("hex", color)
   const [showColorPalette, setShowColorPalette] = useState(false)
 
@@ -45,11 +45,6 @@ function SubjectGridBlock({
   const [colorPalettePos, setColorPalettePos] = useState({ top: 0, right: 0 })
 
   useOnClickOutside(menuRef, () => setShowMenu(false))
-  // useOnClickOutside(colorPaletteRef, () => {
-  //   setShowColorPalette(false)
-  //   setSelectedColor(color)
-  //   dispatch(addSubjectColor(name, colorRef.current))
-  // })
 
   return (
     <motion.div
@@ -75,19 +70,20 @@ function SubjectGridBlock({
         const left = e.pageX - rect.left
         const top = e.pageY - rect.top
 
-        if (e.pageY + 72 > parentRect.bottom) {
-          setMenuPos((pos) => ({ ...pos, top: `calc(${top}px - 72px)` }))
+        console.log(e.pageY, e.pageX)
+
+        if (e.pageY + 72 > window.innerHeight) {
+          setMenuPos((pos) => ({ ...pos, top: `calc(${e.pageY}px - 72px)` }))
         } else {
-          setMenuPos((pos) => ({ ...pos, top }))
+          setMenuPos((pos) => ({ ...pos, top: e.pageY }))
         }
 
-        if (e.pageX + 109 > parentRect.right) {
-          setMenuPos((pos) => ({ ...pos, left: `calc(${left}px - 109px)` }))
+        if (e.pageX + 109 > window.innerWidth) {
+          setMenuPos((pos) => ({ ...pos, left: `calc(${e.pageX}px - 109px)` }))
         } else {
-          setMenuPos((pos) => ({ ...pos, left }))
+          setMenuPos((pos) => ({ ...pos, left: e.pageX }))
         }
 
-        // setMenuPos({ top, left })
         setShowMenu(true)
       }}
       key={`${name}-${day}`}
@@ -100,77 +96,66 @@ function SubjectGridBlock({
       </p>
       <AnimatePresence initial={false}>
         {showMenu && (
-          <motion.div
-            positionTransition
-            initial={{ opacity: 0, scale: 0.5 }}
-            animate={{ opacity: 1, scale: 1 }}
-            exit={{ opacity: 0, scale: 0.5 }}
-            transition={{ ease: "easeOut", duration: 0.12 }}
-            className={styles.menu}
-            style={{ left: menuPos.left, top: menuPos.top }}
-            ref={menuRef}
-          >
-            <ul>
-              <li
-                onClick={() => {
-                  setShowConfirmation(true)
-                  setShowMenu(false)
-                }}
-              >
-                Delete Subject
-              </li>
-              <li
-                onClick={(e) => {
-                  setShowColorPalette(true)
-                  setShowMenu(false)
+          <Portal>
+            <motion.div
+              positionTransition
+              initial={{ opacity: 0, scale: 0.5 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.5 }}
+              transition={{ ease: "easeOut", duration: 0.12 }}
+              className={styles.menu}
+              style={{ left: menuPos.left, top: menuPos.top, zIndex: 999 }}
+              ref={menuRef}
+            >
+              <ul>
+                <li
+                  onClick={() => {
+                    setShowConfirmation(true)
+                    setShowMenu(false)
+                  }}
+                >
+                  Delete Subject
+                </li>
+                <li
+                  onClick={(e) => {
+                    setShowColorPalette(true)
+                    setShowMenu(false)
 
-                  // const rect = e.target.getBoundingClientRect()
-                  // const parentRect = e.target.parentNode.getBoundingClientRect()
-                  const rect = blockRef.current.getBoundingClientRect()
-                  const parentRect =
-                    blockRef.current.parentNode.getBoundingClientRect()
+                    const rect = blockRef.current.getBoundingClientRect()
+                    const parentRect =
+                      blockRef.current.parentNode.getBoundingClientRect()
 
-                  // console.log("---------------------------")
-                  // console.log(blockRef.current.getBoundingClientRect())
-                  // console.log(e.target.parentNode.parentNode)
-                  // console.log(rect)
-                  // console.log(parentRect)
-                  // console.log("---------------------------")
+                    if (rect.top + 349 > parentRect.bottom) {
+                      setColorPalettePos((pos) => ({
+                        ...pos,
+                        top: `-${rect.top + 349 - parentRect.bottom}px`,
+                      }))
+                    } else {
+                      setColorPalettePos((pos) => ({ ...pos, top: 0 }))
+                    }
 
-                  if (rect.top + 349 > parentRect.bottom) {
-                    // shift the palette to the top?
-                    setColorPalettePos((pos) => ({
-                      ...pos,
-                      top: `-${rect.top + 349 - parentRect.bottom}px`,
-                    }))
-                  } else {
-                    setColorPalettePos((pos) => ({ ...pos, top: 0 }))
-                  }
+                    if (rect.right + 428 > parentRect.right) {
+                      setColorPalettePos((pos) => ({
+                        ...pos,
+                        right: `calc(100% + 5px)`,
+                        left: undefined,
+                      }))
+                    } else {
+                      setColorPalettePos((pos) => ({
+                        ...pos,
+                        right: undefined,
+                        left: "calc(100% + 5px)",
+                      }))
+                    }
 
-                  if (rect.right + 428 > parentRect.right) {
-                    // shift the palette to the right?
-                    setColorPalettePos((pos) => ({
-                      ...pos,
-                      right: `calc(100% + 5px)`,
-                      left: undefined,
-                    }))
-                  } else {
-                    // setColorPalettePos((pos) => ({ ...pos, left: 'calc(100%) + 5px' }))
-                    // setColorPalettePos((pos) => ({ ...pos, right: "5px" }))
-                    setColorPalettePos((pos) => ({
-                      ...pos,
-                      right: undefined,
-                      left: "calc(100% + 5px)",
-                    }))
-                  }
-
-                  // 428 x 349 (dimensions of the color palette)
-                }}
-              >
-                Change Color
-              </li>
-            </ul>
-          </motion.div>
+                    // 428 x 349 (dimensions of the color palette)
+                  }}
+                >
+                  Change Color
+                </li>
+              </ul>
+            </motion.div>
+          </Portal>
         )}
       </AnimatePresence>
       <AnimatePresence>
@@ -218,7 +203,6 @@ function SubjectGridBlock({
               height={150}
               color={selectedColor}
               onChange={(e) => {
-                // colorRef.current = color
                 setSelectedColor(e)
                 dispatch(addSubjectColor(name, e.hex))
               }}
@@ -230,7 +214,6 @@ function SubjectGridBlock({
             <div style={{ display: "flex", gap: "10px", marginTop: "10px" }}>
               <ActionButton
                 onClick={() => {
-                  // dispatch(addSubjectColor(name, selectedColor.hex))
                   setShowColorPalette(false)
                   colorRef.current = selectedColor.hex
                 }}
@@ -242,14 +225,12 @@ function SubjectGridBlock({
                 onClick={() => {
                   setShowColorPalette(false)
                   dispatch(addSubjectColor(name, colorRef.current))
-                  // setSelectedColor(colorRef.current)
                 }}
                 style={{ width: "100%" }}
               >
                 Cancel
               </ActionButton>
             </div>
-            {/* <button onClick={() => setShowColorPalette(false)}>close</button> */}
           </motion.div>
         )}
       </AnimatePresence>

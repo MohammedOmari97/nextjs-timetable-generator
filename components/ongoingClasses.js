@@ -35,7 +35,7 @@ function OngoingClasses() {
   const subjects = useSelector(
     (state) => state.scheduleReducer.schedule?.result?.subjects
   )
-  const { hours, minutes } = useContext(TimeContext)
+  const { hours, minutes, selectedDay } = useContext(TimeContext)
   const { useDevtoolsTime } = useSelector((state) => state.devtoolsReducer)
 
   let activeHours
@@ -148,16 +148,19 @@ function OngoingClasses() {
               endTimeHours,
               endTimeMinutes
             )
-            // const now = new Date().setHours(hours, minutes)
             const now = new Date().setHours(activeHours, activeMinutes)
-            if (subjectStartTime - now <= 0 && subjectEndTime - now > 0) {
+            if (
+              subjectStartTime - now <= 0 &&
+              subjectEndTime - now > 0 &&
+              subject.days.includes(selectedDay.toLowerCase())
+            ) {
               return subject
             }
           })
           .filter((subject) => subject != null)
       )
     }
-  }, [minutes, hours, useDevtoolsTime])
+  }, [minutes, hours, useDevtoolsTime, subjects, selectedDay])
 
   return (
     <div className={styles.container}>

@@ -36,15 +36,15 @@
         font-size: 18px;
 
         &:hover {
-          background-color: #e3e3e333;
+          background-color: #d1fae5;
         }
 
         &:active {
-          background-color: #e3e3e3;
+          background-color: #a7f3d0;
         }
 
         &.selected {
-          background: #e3e3e3aa;
+          background: #d1fae5;
         }
       }
     }
@@ -64,10 +64,9 @@
         justify-content: space-between;
         padding: 15px;
         border-radius: 15px;
-        background: #200ac3ee;
-        box-shadow: inset 20px 20px 50px 0px rgb(255 255 255 / 30%),
-          0px 4px 15px 1px rgb(60 64 67 / 15%);
-        color: #fff;
+        color: #064e3b;
+        border: 1px solid #e3e3e355;
+        box-shadow: 0 1px 2px 0 #10b98111;
 
         p {
           margin: 0;

@@ -2,10 +2,8 @@
   font-family: inherit;
   font-size: 18px;
   padding: 15px 55px;
-  // max-width: 100px;
   border: none;
-  // background: #5056c6cc;
-  background: #200ac3ee;
+  background: #3366ff;
   color: #fff;
   background: none;
   border-radius: 16px;
@@ -14,7 +12,6 @@
   text-align: center;
   transform: scale(1);
   transition: all 0.3s ease;
-  // margin-top: 20px;
   outline: none;
   position: relative;
   --pseudoScale: 1;
@@ -27,22 +24,12 @@
     top: 0;
     left: 0;
     border-radius: 16px;
-    background: #200ac3ee;
-    box-shadow: inset 20px 20px 50px 0px rgb(255 255 255 / 30%),
-      0px 4px 15px 1px rgb(60 64 67 / 15%);
-    // transform: scale(1);
+    background: #1d4ed8;
+
+    background: #10b981;
+    box-shadow: inset 20px 20px 50px 0px rgb(255 255 255 / 30%);
     transform: scale(var(--pseudoScale));
     transition: all 0.3s ease;
     z-index: -1;
   }
-
-  // &:active {
-  //   &:before {
-  //     transform: scale(0.95);
-  //   }
-  // }
-
-  // &:focus {
-  //   box-shadow: 0 0 0 2px white, 0 0 0 4px orange;
-  // }
 }

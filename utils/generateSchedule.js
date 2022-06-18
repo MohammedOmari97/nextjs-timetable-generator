@@ -36,15 +36,30 @@ export class Subject {
         : getTimeNumber(subject.endTime)
 
     let timeOverlap =
-      Math.max(times.indexOf(thisStartTime), times.indexOf(subjectStartTime)) <
-        Math.min(times.indexOf(thisEndTime), times.indexOf(subjectEndTime)) &&
-      this.days.filter((day) => subject.days.includes(day)).length != 0
+      Math.max(
+        typeof thisStartTime === "string"
+          ? timesStrings.indexOf(thisStartTime)
+          : times.indexOf(thisStartTime),
+        typeof subjectStartTime === "string"
+          ? timesStrings.indexOf(subjectStartTime)
+          : times.indexOf(subjectStartTime)
+      ) <
+        Math.min(
+          typeof thisEndTime === "string"
+            ? timesStrings.indexOf(thisEndTime)
+            : times.indexOf(thisEndTime),
+          typeof subjectEndTime === "string"
+            ? timesStrings.indexOf(subjectEndTime)
+            : times.indexOf(subjectEndTime)
+        ) && this.days.filter((day) => subject.days.includes(day)).length != 0
 
     let teacherOverlap = this.teacher === subject.teacher
 
     let levelOverlap = this.level === subject.level
 
-    return (timeOverlap && teacherOverlap) || (timeOverlap && levelOverlap)
+    const areOverlapping =
+      (timeOverlap && teacherOverlap) || (timeOverlap && levelOverlap)
+    return areOverlapping
 
     // let timeOverlap =
     //   Math.max(
@@ -139,7 +154,6 @@ export class Population {
     }
     let i = 0
     while (true) {
-      console.log(i++)
       let maxFit = Infinity
       for (let i = 0; i < this.population.length; i++) {
         this.population[i].evaluate()

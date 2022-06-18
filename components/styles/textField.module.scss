@@ -25,18 +25,22 @@
       // margin-top: 5px;
 
       &:hover {
-        box-shadow: 0 0 0 4px #3366ff22;
+        // box-shadow: 0 0 0 4px #3366ff22;
+        box-shadow: 0 0 0 4px #10b98122;
       }
 
       &:active {
-        box-shadow: 0 0 0 4px #3366ff22;
+        // box-shadow: 0 0 0 4px #3366ff22;
+        box-shadow: 0 0 0 4px #10b98122;
         outline: none;
       }
 
       &:focus {
         outline: none;
-        box-shadow: 0 0 0 4px #3366ff22;
-        border-color: #3366ffaa;
+        // box-shadow: 0 0 0 4px #3366ff22;
+        box-shadow: 0 0 0 4px #10b98122;
+        // border-color: #3366ffaa;
+        border-color: #10b981aa;
       }
 
       &::placeholder {

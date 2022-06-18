@@ -106,3 +106,31 @@
     font-size: 18px;
   }
 }
+
+.menu {
+  position: absolute;
+  transform-origin: top left;
+  border-radius: 10px;
+  background: #fff;
+  border: 1px solid #e3e3e3;
+  padding: 7px 0;
+  color: #777;
+  z-index: 950;
+
+  ul {
+    padding: 0;
+    margin: 0;
+    list-style: none;
+
+    li {
+      white-space: nowrap;
+      padding: 5px;
+      cursor: pointer;
+
+      &:hover {
+        background: var(--blue);
+        color: #fff;
+      }
+    }
+  }
+}

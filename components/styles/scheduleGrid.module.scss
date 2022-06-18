@@ -7,6 +7,7 @@
   grid-column: 2 / -1;
   // grid-column: 3 / -1;
   position: relative;
+  z-index: 900;
 
   .cursor {
     position: absolute;

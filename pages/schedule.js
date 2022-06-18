@@ -88,11 +88,14 @@ export default function Home(props) {
                 control: (provided, state) => ({
                   ...provided,
                   background: "#fff",
-                  borderColor: "#9e9e9e",
+                  borderColor: "#e3e3e3",
                   minHeight: "30px",
                   height: "30px",
                   width: "60px",
                   boxShadow: state.isFocused ? null : null,
+                  "&:hover": {
+                    borderColor: "#10b981",
+                  },
                 }),
                 valueContainer: (provided, state) => ({
                   ...provided,
@@ -102,6 +105,17 @@ export default function Home(props) {
                 input: (provided, state) => ({
                   ...provided,
                   margin: "0px",
+                }),
+                option: (provided, state) => ({
+                  ...provided,
+                  background: state.isSelected
+                    ? "#10b981"
+                    : state.isFocused
+                    ? "#d1fae5"
+                    : undefined,
+                  "&:hover": {
+                    background: state.isSelected ? undefined : "#d1fae5",
+                  },
                 }),
                 indicatorSeparator: (state) => ({
                   display: "none",
